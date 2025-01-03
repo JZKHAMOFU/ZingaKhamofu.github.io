@@ -1,0 +1,97 @@
+---
+title: "Projects"
+---
+I, Zinga Khamofu, completed the Fundamentals of R programming at [The Know Place](https://theknowplace.github.io) , an online learning platform dedicated to fostering technical skills. This course, expertly taught by  [Ms Chiomah Ezeomah](https:chiomahezeomah.github.io), provided me with a solid foundation in R programming, equipping me with essential skills for data analysis and statistical computing. The experience not only enhanced my technical proficiency but also deepened my passion for learning and problem-solving in the field of computer science.
+
+
+
+```{r,include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(readxl)
+```
+
+```{r,include=FALSE}
+ncdc.data <-read_xlsx("C:/Users/user/Documents/TKPR PROGRAMMING/ncdc_2024.xlsx", sheet=1)
+```
+
+```{r, include=FALSE}
+head(ncdc.data)
+```
+
+```{r,echo=FALSE}
+ggplot(ncdc.data,aes(x=epid.week, y=cases, color=disease))+
+  geom_line()+
+  labs(title = "Lineplot of Disease Cases per Week", x="Week", y="Cases")+
+  theme_light()+
+  scale_color_brewer(palette = "Dark2", label=c("Cholera","CS Meningitis","Lassa fever","Measles","Mpox","Yellow fever"))+
+  labs(color = "Disease") + theme(legend.title = element_text(size = 10, face="bold", hjust = 0.5))
+```
+
+
+
+This line plot represents the number of reported cases for different diseases over time, with weeks on the x-axis and the number of cases on the y-axis. Each disease—cholera, cerebrospinal meningitis (CSM), Lassa fever, measles, mpox, and yellow fever—is represented by a distinct color in the legend.
+
+From the graph, measles stands out with the highest peaks, indicating significant outbreaks during specific weeks. Cholera and Lassa fever also show notable spikes, especially early on, while CSM, mpox, and yellow fever remain relatively low throughout the period. Lassa fever has a sharp early peak but then declines steadily, suggesting that initial outbreaks were brought under control.
+
+This graph helps highlight how diseases fluctuate over time. It reflects the need for targeted interventions during outbreaks, especially for diseases like measles and cholera that show large-scale spikes. It also emphasizes the importance of monitoring trends to effectively manage public health responses.
+
+```{r, echo=FALSE}
+ggplot(ncdc.data, aes(x=disease,y=cases ,color=disease))+
+  geom_boxplot()+
+  labs(title = "Boxplot Analysis of ncdc_2024 data", x="Diseases", y="Cases")+
+  theme_light()+
+  scale_color_brewer(palette = "Dark2", label=c("Cholera","CS Meningitis","Lassa fever","Measles","Mpox","Yellow fever"))+
+  labs(color = "Disease") + theme(legend.title = element_text(size = 10, face="bold", hjust = 0.5))
+```
+
+This boxplot provides a statistical summary of cases for six diseases: cholera, cerebrospinal meningitis (CSM), Lassa fever, measles, mpox, and yellow fever, based on the "ncdc_2024" dataset. The x-axis represents the diseases, while the y-axis shows the number of cases.
+
+The box for each disease highlights the interquartile range (IQR), representing the middle 50% of the data. The line within each box is the median, showing the central tendency. The whiskers extend to the minimum and maximum values, excluding outliers, which are displayed as individual dots. These outliers indicate cases significantly different from the majority.
+
+Measles has the largest box and whiskers, showing high variability and the widest range of cases, making it the most significant in this dataset. Cholera and Lassa fever have moderate variability, with outliers indicating occasional spikes. Meanwhile, CSM, mpox, and yellow fever show consistently low case numbers with minimal variation.
+
+This visualization helps me understand how cases for each disease are distributed and highlights the importance of focusing on diseases like measles and cholera due to their higher variability and impact. It’s a valuable tool for identifying trends and planning public health interventions.
+
+```{r,include=FALSE}
+ncdc_data_cumulative_mut <- ncdc.data %>%
+  group_by(disease) %>%
+  mutate(cumulative.total=cumsum(cases))
+head(ncdc_data_cumulative_mut)
+```
+
+```{r,include=FALSE}
+ncdc.cumulative<- ncdc_data_cumulative_mut %>%
+  filter(epid.week==53)
+```
+
+```{r,include=FALSE}
+head(ncdc.cumulative)
+```
+
+```{r,echo=FALSE}
+ggplot(ncdc.cumulative, aes(x=disease, y=cumulative.total, color= disease, fill= disease))+
+  geom_bar(stat="identity", fill="#d90166",color="#d90166")+
+  xlab("Diseases") + theme(axis.theme.x= element_text(vjust=0.5, size=10, face="bold"))+
+  ylab("Cumulative Total")+ theme(axis.title.y = element_text(hjust = 0.5,size=10, face = "bold"))+
+  labs(title = "Bar Plot for the Cumulative Total of Cases of Diseases") + theme(plot.title = element_text(size=14, hjust=0.5, face= "bold"))+
+  theme_minimal()+ scale_x_discrete(labels= c("Cholera","CS Meningitis", "Lassa Fever", "Measles","MPox","Yellow Fever"))+
+  theme_light()
+   #+coord_flip()
+```
+ 
+This bar plot illustrates the cumulative total of cases for six diseases: cholera, cerebrospinal meningitis (CSM), Lassa fever, measles, mpox, and yellow fever. The x-axis represents the diseases, while the y-axis shows the total number of cases recorded.
+
+The most striking observation is that measles has the highest cumulative total, far exceeding the other diseases. This highlights measles as a significant public health concern within the dataset. Lassa fever and cholera also show notable totals, but they are much lower in comparison. Meanwhile, CSM, mpox, and yellow fever have relatively low cumulative totals, suggesting a smaller impact or prevalence in the data.
+
+The bright orange bars with green borders make the differences visually clear and easy to interpret. This visualization emphasizes the need to focus on diseases like measles due to their overwhelming burden. As a college student, analyzing graphs like this helps me understand how data can guide public health decisions and prioritize disease prevention efforts..
+
+
+
+
+
+
+
+
+
+

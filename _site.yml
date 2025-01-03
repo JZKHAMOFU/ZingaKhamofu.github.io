@@ -1,0 +1,18 @@
+name: "Zinga Khamofu"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "Extracurricular Activities"
+      href: extra_activities.html
+    - text: "Projects"
+      href: projects.html 
+    - icon: fa-envelope fa-lg
+      href: mailto:<jzkhamofu@gmail.com>
+    - icon: fa-github fa-lg
+      href: https://ZingaKhamofu.github.io
+    - icon: fa-twitter fa-lg
+      href: https://twitter.com/JZKhamofu
+output:
+  html_document:
+    theme: darkly
