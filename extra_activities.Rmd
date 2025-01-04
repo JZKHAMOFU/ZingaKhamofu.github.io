@@ -6,7 +6,7 @@ output:
     toc_float: true
 ---
 
-<img src= "zinga.ball.JPG" style="width:40%; border:5px solid; color: steelblue; margin-right: 20px" align="center">
+<img src= "zinga.ball.jpg" style="width:40%; border:5px solid; color: steelblue; margin-right: 20px" align="center">
 
 
 ## On the field 
